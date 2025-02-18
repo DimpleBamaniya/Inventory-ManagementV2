@@ -1,0 +1,35 @@
+// styles.scss
+
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+
+body {
+  background-color: #f8f9fa;
+}
+
+.navbar {
+  background-color: $primary-color;
+
+  .nav-link {
+    color: rgb(67, 0, 252);
+
+    &:hover {
+      color: lighten($primary-color, 10%);
+    }
+  }
+
+  .navbar-text {
+    color: rgb(38, 0, 255);
+    font-size: 1.2rem;
+    text-align: center;
+  }
+}
+
+// Add additional styles for PrimeNG components
+.p-button {
+  background-color: $primary-color;
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+}

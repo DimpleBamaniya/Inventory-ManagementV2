@@ -1,0 +1,26 @@
+<app-layout></app-layout>
+<div  class="loginPage">
+    <div class="form-container">
+        <label for="loginForm" class="form-title">Login Form</label>
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+            <div class="input-box">
+                <label for="uname" class="uname"><b>EmailID</b><span class="mandatory">*</span></label>
+                <input type="email" formControlName="emailID" placeholder="Enter EmailID" name="uname" required>
+                <div *ngIf="emailID?.invalid && emailID?.touched" class="error">
+                    <div *ngIf="emailID?.errors?.['required'] && isSubmitted">Email is required.</div>
+                    <div *ngIf="emailID?.errors?.['email'] && isSubmitted">Invalid email format.</div>
+                </div>
+
+                <label for="psw" class="psw"><b>Password</b><span class="mandatory">*</span></label>
+                <input type="password" formControlName="password" placeholder="Enter Password" name="psw" required>
+                <div *ngIf="password?.invalid && password?.touched" class="error">
+                    <div *ngIf="password?.errors?.['required'] && isSubmitted">Password is required.</div>
+                    <div *ngIf="password?.errors?.['minlength'] && isSubmitted">
+                        Password must be at least 6 characters long.
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+        </form>
+    </div>
+</div>

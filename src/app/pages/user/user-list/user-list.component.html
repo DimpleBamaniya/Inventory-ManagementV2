@@ -1,0 +1,70 @@
+<app-layout></app-layout>
+<div class="container">
+  <h1>User List</h1>
+  <button [routerLink]="['/user/detail/',addUser]" type="submit">Add User</button>
+
+  <!-- Search Bar -->
+  <div class="search-container">
+    <input type="text" [(ngModel)]="searchString" placeholder="Search">
+    <button (click)="searchUsers()">Search</button>
+  </div>
+
+  <!-- User Table -->
+  <table class="user-table">
+    <thead>
+      <tr>
+        <th (click)="changeSortColumn('userCode')">User Code</th>
+        <th (click)="changeSortColumn('FirstName')">First Name</th>
+        <th (click)="changeSortColumn('LastName')">Last Name</th>
+        <th (click)="changeSortColumn('CityName')">City</th>
+        <th (click)="changeSortColumn('DepartmentName')">Department</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="!isNoRecordFound">
+        <tr *ngFor="let user of users">
+          <td>
+            <a [routerLink]="['/user/detail/', user.id]">{{ user.userCode }}</a>
+          </td>
+          <td>{{user.firstName}}</td>
+          <td>{{user.lastName}}</td>
+          <td>{{user.cityName}}</td>
+          <td>{{user.departmentName}}</td>
+          <td><button type="button" (click)="DeleteUser(user.id)">Delete</button></td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="isNoRecordFound">
+        <tr>
+          <td colspan="6" class="table-no-record text-center">No records found</td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+
+  <nav>
+    <ul class="pagination justify-content-center">
+      <li class="page-item d-flex align-items-center gap-2">
+        <label for="pageSizeDropdown">Page Size:</label>
+        <select class="form-select small-dropdown" id="pageSizeDropdown" (change)="changePageSize($event)"
+        [(ngModel)]="pagingParams.pageSize">
+        <option *ngFor="let size of pageSizeOptions" [value]="size">{{ size }}</option>
+      </select>
+    </li>
+    <li class="page-item">
+      <span>Total Record: {{ totalRecords }}</span>
+    </li>
+      <li class="page-item">
+        <button class="page-link" (click)="changePage(pagingParams.pageNo - 1)" [disabled]="pagingParams.pageNo === 1">
+          Previous</button>
+      </li>
+      <li class="page-item">
+        <span>Page {{ pagingParams.pageNo }} of {{ totalPages }}</span>
+      </li>
+      <li class="page-item">
+        <button class="page-link" (click)="changePage(pagingParams.pageNo + 1)"
+          [disabled]="pagingParams.pageNo === totalPages">Next</button>
+      </li>
+    </ul>
+  </nav>
+</div>

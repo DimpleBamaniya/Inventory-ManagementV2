@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Code Review Summary</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #333;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+
+        h3 {
+            color: #555;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        .status {
+            font-weight: bold;
+        }
+
+        .status.solved {
+            color: green;
+            background-color: #e8f7ee;
+        }
+
+        .status.pending {
+            color: orange;
+            background-color: #fcf7ef;
+        }
+
+        .item {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #eee;
+        }
+
+        .category {
+            font-style: italic;
+            color: #777;
+        }
+
+        .comment {
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Code Review Summary</h1>
+    <h2>Database</h2>
+    <div class="status solved">
+        <div class="item">
+            <h3 class="item-title">Created, Modified, Deleted DataType</h3>
+            <p>Taken "Date", It should be "DateTime"</p>
+            <p><span class="status solved">Solved</span>: Datatype changed to DateTime.</p>
+        </div>
+        <div class="item">
+            <h3 class="item-title">CityID, DepartmentID in User Master table</h3>
+            <p>It must be in mapping table.</p>
+            <p><span class="status solved">Solved</span>: Already using mapping table.</p>
+        </div>
+        <div class="item">
+            <h3 class="item-title">Permission Column ID?</h3>
+            <p><span class="status solved">Solved</span>: Implemented permission based on user's department
+                (Admin/Network & Systems Administrator).</p>
+        </div>
+        <div class="item">
+            <h3 class="item-title">UserCode Unique Constraint</h3>
+            <p>Unique constraint missing</p>
+            <p><span class="status solved">Solved</span>: Implemented stored procedure for updating UserCode.</p>
+        </div>
+    </div>
+    <div class="status pending">
+        <div class="item">
+            <h3 class="item-title">Password stored without encryption</h3>
+            <p><span class="status pending">Pending</span>: Action Required - Implement password hashing with bcrypt or
+                similar secure method.</p>
+        </div>
+    </div>
+    <h2>API</h2>
+    <div class="status solved">
+        <div class="item">
+            <h3 class="item-title">Unnecessary Async methods</h3>
+            <p>ValiadationFieldsToGetUserDetailByID(int id), ValiadationFields() not required async</p>
+            <p><span class="status solved">Solved</span>: Removed async from the specific methods.</p>
+        </div>
+        <div class="item">
+            <h3 class="item-title">Namespace Issues</h3>
+            <p>Namespace not maintained properly (Entities folder)</p>
+            <p><span class="status solved">Solved</span>: Corrected namespaces in Entities folder.</p>
+        </div>
+        <div class="item">
+            <h3 class="item-title">String Nullable Property Warnings</h3>
+            <p><span class="status solved">Solved</span>: Addressed nullable string property warnings.</p>
+        </div>
+        <div class="item">
+            <h3 class="item-title">AsNoTracking Not Used</h3>
+            <p>In select table "AsNotracking" not used</p>
+            <p><span class="status solved">Solved</span>: Implemented AsNoTracking where appropriate.</p>
+        </div>
+    </div>
+    <div class="status pending">
+        <div class="item">
+            <h3 class="item-title">Global Usings</h3>
+            <p><span class="status pending">Pending</span>: Add global usings</p>
+        </div>
+        <div class="item">
+            <h3 class="item-title">Authorization</h3>
+            <p><span class="status pending">Pending</span>: Implement proper authorization mechanisms.</p>
+        </div>
+        <div class="item">
+            <h3 class="item-title">Async/Await Usage</h3>
+            <p>Not used in some methods</p>
+            <p><span class="status pending">Pending</span>: Implement Async/Await in applicable methods (estimated 5
+                hours).</p>
+        </div>
+        <div class="item">
+            <h3 class="item-title">Inconsistent Result Objects</h3>
+            <p>Inconsistent use of Result object in API responses.</p>
+            <p><span class="status pending">Pending</span>: Standardize API responses to consistently use Result objects
+                (estimated 1 day).</p>
+        </div>
+    </div>
+    <h2>Angular</h2>
+    <div class="status solved">
+        <div class="item">
+            <h3 class="item-title">HTML Tags in Login Page</h3>
+            <p>&lt;html&gt;, &lt;head&gt;, &lt;body&gt; tags used in Login page. Startup project not configured
+                properly.</p>
+            <p><span class="status solved">Solved</span>: Corrected HTML structure in login page.</p>
+        </div>
+        <div class="item">
+            <h3 class="item-title">Authguard is implemented</h3>
+            <p><span class="status solved">Solved</span>: Authguard is implemented.</p>
+        </div>
+        <div class="item">
+            <h3 class="item-title">User Access Rights</h3>
+            <p>If User don't have access rights then also user can navigate to page</p>
+            <p><span class="status solved">Solved</span>: Implemented access control based on user department.</p>
+        </div>
+    </div>
+    <div class="status pending">
+        <div class="item">
+            <h3 class="item-title">API URL Configuration</h3>
+            <p>Environment file is not used for API URL Configuration.</p>
+            <p><span class="status pending">Pending</span>: Configure API URLs using environment files (estimated 1
+                hour).</p>
+        </div>
+        <div class="item">
+            <h3 class="item-title">HTTP Interceptor</h3>
+            <p>HTTP Interceptor not used for common HTTP handling</p>
+            <p><span class="status pending">Pending</span>: Implement HTTP Interceptor for common HTTP handling.</p>
+        </div>
+        <div class="item">
+            <h3 class="item-title">Lazy Load Components</h3>
+            <p>Lazy load component missing in routing</p>
+            <p><span class="status pending">Pending</span>: Implement lazy loading for components in routing.</p>
+        </div>
+        <div class="item">
+            <h3 class="item-title">Exception handling missing</h3>
+            <p>Exception handling missing while api call, null check</p>
+            <p><span class="status pending">Pending</span>: Implement robust exception handling during API calls and
+                null checks.</p>
+        </div>
+        <div class="item">
+            <h3 class="item-title">Spelling Mistakes</h3>
+            <p>Spelling mistakes in some pages</p>
+            <p><span class="status pending">Pending</span>: Review and correct spelling mistakes in all pages.</p>
+        </div>
+
+        <div class="item">
+            <h3 class="item-title">Code Structure</h3>
+            <p>Some code written in same function without divided in to smaller chunk</p>
+            <p><span class="status pending">Pending</span>: Refactor code by dividing functions into smaller, more
+                manageable chunks.</p>
+        </div>
+    </div>
+    <h2>System Testing and Findings</h2>
+    <div class="status solved">
+        <div class="item">
+            <h3 class="item-title">Email Case Sensitivity</h3>
+            <p>While Login Email should case incentive</p>
+            <p><span class="status solved">Solved</span>: Implemented case-insensitive email login.</p>
+        </div>
+        <div class="item">
+            <h3 class="item-title">Login Page HTML</h3>
+            <p>Login page html contains &lt;html&gt;&lt;head&gt; Tags.</p>
+            <p><span class="status solved">Solved</span>: Corrected login page structure.</p>
+        </div>
+        <div class="item">
+            <h3 class="item-title">Signup Module</h3>
+            <p>Signup Module not implemented</p>
+            <p class="comment">There is functionality to create user if user has permission (Add user from user list
+                page.)</p>
+            <p><span class="status solved">Solved</span>: User creation is handled via the "Add User" functionality on
+                the user list page, with appropriate permission checks.</p>
+        </div>
+        <div class="item">
+            <h3 class="item-title">Role Permission</h3>
+            <p><span class="status solved">Solved</span>: Implemented role-based permissions based on user department.
+            </p>
+        </div>
+        <div class="item">
+            <h3 class="item-title">Assign Product Brand Name</h3>
+            <p>Assign Product Brand Name is missing</p>
+            <p class="comment">when user add product than brand is there. when user assign any product than first select
+                category than get that product brand which has available product from product list.</p>
+            <p><span class="status solved">Solved</span>: Brand Name is populated when you select category and brand
+                will available after fetch category. </p>
+        </div>
+        <div class="item">
+            <h3 class="item-title">Confirmation before delete</h3>
+            <p>On delete, it delete without confirmation.</p>
+            <p><span class="status solved">Solved</span>: Implement a confirmation dialog before deleting any item
+                (estimated 3 hours).</p>
+        </div>
+        <div class="item">
+            <h3 class="item-title">Provide link to redirect</h3>
+            <p> product assign pop up ===> if no brand available than provide link to redirect on product list.</p>
+            <p><span class="status solved">Solved</span>:Implemented redirection functionality when no brand is
+                available, it will redirect product list. </p>
+        </div>
+    </div>
+    <div class="status pending">
+        <div class="item">
+            <h3 class="item-title">Common Loader Implementation</h3>
+            <p>While doing API call Common Loader not implemented which indicate user to wait</p>
+            <p><span class="status pending">Pending</span>: Implement a common loader indicator during API calls.</p>
+        </div>
+        <div class="item">
+            <h3 class="item-title">Toaster Implementation</h3>
+            <p>Toaster is not implemented (Simple JavaScript alert has been given)</p>
+            <p><span class="status pending">Pending</span>: Replace JavaScript alerts with a Toaster notification
+                system.</p>
+        </div>
+        <div class="item">
+            <h3 class="item-title">Multiple Template Functionality</h3>
+            <p>Multiple template functionality missing on login page</p>
+            <p><span class="status pending">Pending</span>: Implement multiple template functionality on the login page.
+            </p>
+        </div>
+        <div class="item">
+            <h3 class="item-title">Sorting</h3>
+            <p>User Listing table not able to find sorting functionality</p>
+            <p><span class="status pending">Pending</span>: Implement sorting functionality for the user listing table.
+            </p>
+        </div>
+        <div class="item">
+            <h3 class="item-title">Logged In User can delete it self</h3>
+            <p><span class="status pending">Pending</span>: Prevent logged-in users from deleting their own accounts.
+            </p>
+        </div>
+        <div class="item">
+            <h3 class="item-title">Edit Button State</h3>
+            <p>While add new user it always show "Edit" button. After clicking "Edit" button it converts to "Save"
+                button. Validation fire after that.</p>
+            <p class="comment">as we used to whenever load page it can be only read only mode after click on edit button
+                than we can edit data.</p>
+            <p><span class="status pending">Pending</span>: Adjust Edit button state. Display in "Read-Only" mode.
+                change save button in to "Edit" after that click on edit than convert to "Save" to allow to user can be
+                able to edit the data. </p>
+        </div>
+        <div class="item">
+            <h3 class="item-title">Trim Directive</h3>
+            <p>Trim directive not implemented. Can save user detail by adding space</p>
+            <p><span class="status pending">Pending</span>: Implement Trim directive to prevent saving user details with
+                leading/trailing spaces.</p>
+        </div>
+        <div class="item">
+            <h3 class="item-title">Edit form City and Department</h3>
+            <p>Edit form City and Department field is not editable.</p>
+            <p class="comment">for user who has no permission than city is editable and department is not editable. for
+                user who has permission than city and department are editable.</p>
+            <p class="comment">The user's permission is determined by the department, so if the user does not have a
+                permission, he cannot edit.</p>
+            <p><span class="status pending">Pending</span>: Handle Edit form City and Department based on permissions.
+            </p>
+        </div>
+        <div class="item">
+            <h3 class="item-title">Component is not divided in to child component</h3>
+            <p><span class="status pending">Pending</span>: Refactor the component into smaller, more manageable child
+                components.</p>
+        </div>
+        <div class="item">
+            <h3 class="item-title">Page refresh on add/delete</h3>
+            <p>After Adding/delete whole page is refresh. It should refresh component only.</p>
+            <p><span class="status pending">Pending</span>: Refactor to refresh only the relevant data/component
+                (estimated 3 hours).</p>
+        </div>
+        <div class="item">
+            <h3 class="item-title">Sorting Products</h3>
+            <p>Sorting is not working properly and unable to find sort column</p>
+            <p><span class="status pending">Pending</span>: Fix the sorting functionality for product listing and enable
+                column headers to indicate sort direction.</p>
+        </div>
+        <div class="item">
+            <h3 class="item-title">Add Inventory Items</h3>
+            <p>Unable add new inventory items. Brand and category is predefined.</p>
+            <p class="comment"> as I mention in document file it can be provide soon till now we can use from predefine
+                or add from DB.</p>
+            <p><span class="status pending">Pending</span>: Implement the ability to add new inventory items with
+                dynamic brand and category selection (Future implementation planned).</p>
+        </div>
+        <div class="item">
+            <h3 class="item-title">Cannot edit or delete own data</h3>
+            <p><span class="status pending">Pending</span>: Prevent logged-in users from editing or deleting their own
+                data. </p>
+        </div>
+    </div>
+</body>
+</html>

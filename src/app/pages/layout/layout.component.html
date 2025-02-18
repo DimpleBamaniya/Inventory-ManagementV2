@@ -1,0 +1,30 @@
+  <nav class="navbar navbar-expand-sm bg-light">
+    <div class="container-fluid">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item" *ngIf="isShowProduct">
+          <a *ngIf="isShowProduct" class="nav-link" [routerLink]="['/product/list/']">Product Management</a>
+        </li>
+        <li class="nav-item" *ngIf="isShowUserListButton">
+          <a *ngIf="isShowUserListButton" class="nav-link" [routerLink]="['/user/list/']">User Management</a>
+        </li>
+      </ul>
+      <div class="navbar-text mx-auto fw-bold">
+        Welcome {{loggedInUserName}}!!!
+      </div>
+      <ul class="navbar-nav ms-auto" *ngIf="!isHideAboutUs">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/aboutUs']">About Us</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto" *ngIf="isShowLogoutButton">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/logout']">Logout</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto" *ngIf="isShowLogin">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/login']">Login</a>
+        </li>
+      </ul>
+    </div>
+  </nav>

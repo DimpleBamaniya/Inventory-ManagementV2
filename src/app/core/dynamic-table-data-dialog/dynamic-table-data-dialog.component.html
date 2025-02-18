@@ -1,0 +1,27 @@
+<div class="dialog-background">
+  <div class="dialog-container">
+    <div class="button-container close-button-container">
+      <button class="button-close" (click)="closeDialog()">X</button>
+    </div>
+    <h2>{{ data.dialogLabel }}</h2>
+    <h6 *ngIf="data.label">{{ data.label }}</h6>
+
+    <table class="dynamic-table">
+      <thead>
+        <tr>
+          <th *ngFor="let column of this.tableDataColumn">{{ column }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let column of tableDatalist; let i = index">
+          <td>{{ i + 1}}</td>
+          <td>{{ column.name }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="button-container">
+      <button class="button-ok" (click)="closeDialog()">OK</button>
+    </div>
+  </div>
+</div>

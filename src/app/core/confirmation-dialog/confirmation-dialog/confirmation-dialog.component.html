@@ -1,0 +1,17 @@
+<div class="dialog-background">
+    <div class="dialog-container">
+      <div class="button-container close-button-container">
+        <button class="button-close" (click)="closeDialog(false)">X</button>
+      </div>
+      <h2>{{ data.title }}</h2>
+      <h6 *ngIf="data.message">{{ data.message }}</h6>
+  
+      <div class="button-container">
+          <button class="button-cancel" (click)="closeDialog(false)">Cancel</button>
+        <button class="button-ok" (click)="closeDialog(true)">OK</button>
+      </div>
+    </div>
+  </div>
+
+
+

@@ -1,0 +1,206 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.search-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table td, .table th {
+  padding: 12px;
+  text-align: center;
+}
+
+.thead-dark {
+  background-color: #343a40;
+  color: #fff;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.table-striped tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.table-no-record {
+  font-size: 18px;
+  color: #6c757d;
+}
+
+.btn {
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+
+.fade-in {
+  animation: fade-in 0.5s ease-in-out;
+}
+
+// Pagination Styles
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0; // Adjust margin as needed
+
+  .page-item {
+    display: flex;
+    align-items: center;
+
+    // Styles for the Page Size dropdown
+    .small-dropdown {
+      width: auto; // Adjust width as necessary
+      min-width: 80px; // Minimum width for the dropdown
+      margin-left: 10px; // Space between label and dropdown
+    }
+
+    // Styles for buttons
+    button {
+      margin: 0 5px; // Space between buttons
+      padding: 10px 15px; // Adjust padding for buttons
+      border-radius: 5px; // Rounded corners
+
+      &.btn-secondary {
+        background-color: #6c757d; // Bootstrap secondary color
+        color: white;
+
+        &:hover {
+          background-color: darken(#6c757d, 10%); // Darken on hover
+        }
+
+        &:disabled {
+          opacity: 0.65; // Style for disabled state
+          cursor: not-allowed; // Change cursor on disabled
+        }
+      }
+      
+      &.animated-btn {
+        background-color: #007bff; // Primary button color
+        color: white;
+
+        &:hover {
+          background-color: darken(#007bff, 10%); // Darken on hover
+        }
+        
+        &.mb-6 {
+          margin-bottom: 6px; // Specific bottom margin for this button
+        }
+
+        &.mb-8 {
+          margin-bottom: 8px; // Specific bottom margin for this button
+        }
+      }
+    }
+
+    // Additional styles for total records display
+    span {
+      margin: 0 10px; // Space around total records text
+      font-size: 14px; // Font size adjustment
+      color: #333; // Text color
+    }
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.form-control {
+  padding: 5px 10px;
+}
+
+@media (max-width: 767px) {
+  .container {
+    padding: 0 15px;
+  }
+
+  .search-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+}
+
+/* Adjusting search button styling */
+.search-container .btn-success {
+  margin-left: 10px;
+  background-color: #28a745;
+  border-color: #28a745;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #218838;
+    border-color: #218838;
+    transform: scale(1.05);
+  }
+}
+
+/* Adjusting button alignment in the search-container */
+.search-container .d-flex {
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.animated-btn {
+  position: relative;
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: inherit; /* Retain original background color */
+  color: inherit; /* Retain inherited text color */
+  border-color:#c7c6c6; /* Remove border */
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  /* Hover Effect */
+  &:hover {
+    transform: scale(1.05); /* Slight scaling effect */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Add shadow */
+  }
+
+  /* Active/Pressed Effect */
+  &:active {
+    transform: scale(1); /* Reset scaling */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Subtle shadow */
+  }
+
+  &:hover::after {
+    width: 300%;
+    height: 300%;
+    opacity: 0.2; /* Subtle ripple effect */
+  }
+}

@@ -1,0 +1,69 @@
+<div class="dialog-background">
+  <div class="dialog-container">
+    <div class="dialog-header">
+      <h2>{{ dialogLabel }}</h2>
+      <button class="button-close" (click)="closeDialog()">X</button>
+    </div>
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="categoryID">Category<span class="mandatory">*</span></label>
+        <select *ngIf="isAssignProduct" id="categoryID" formControlName="categoryID"
+          (change)="onChangeCategory($event)">
+          <option value={{null}} disabled>Select Category</option>
+          <option *ngFor="let category of productCategories" [value]="category.id">{{ category.name }}</option>
+        </select>
+        <select *ngIf="!isAssignProduct" id="categoryID" formControlName="categoryID">
+          <option value={{null}} disabled>Select Category</option>
+          <option *ngFor="let category of productCategories" [value]="category.id">{{ category.name }}</option>
+        </select>
+        <div *ngIf="productForm.get('categoryID')?.invalid && productForm.get('categoryID')?.touched && isSubmitted"
+          class="error">
+          <div *ngIf="productForm.get('categoryID')?.errors?.['required']">Category is required.</div>
+        </div>
+      </div>
+      <div class="form-group" *ngIf="!isAssignProduct">
+        <label for="brandID">Brand<span class="mandatory">*</span></label>
+        <select id="brandID" formControlName="brandID">
+          <option value={{null}} disabled>Select Brand</option>
+          <ng-container *ngIf="!isAssignProduct">
+            <option *ngFor="let brand of productBrands" [value]="brand.id">{{ brand.name }}</option>
+          </ng-container>
+        </select>
+        <div *ngIf="productForm.get('brandID')?.invalid && productForm.get('brandID')?.touched && isSubmitted"
+          class="error">
+          <div *ngIf="productForm.get('brandID')?.errors?.['required']">Brand is required.</div>
+        </div>
+      </div>
+
+      <div class="form-group" *ngIf="isAssignProduct && isAvailableBrandByCategoryID">
+        <label for="brandID">Brand<span class="mandatory">*</span></label>
+        <select id="brandID" formControlName="brandID">
+          <option value={{null}} disabled>Select Brand</option>
+          <ng-container *ngIf="isAssignProduct && isAvailableBrandByCategoryID">
+            <option *ngFor="let brand of productBrandsByCategoryID" [value]="brand.id">{{ brand.name }}</option>
+          </ng-container>
+        </select>
+        <div *ngIf="productForm.get('brandID')?.invalid && productForm.get('brandID')?.touched && isSubmitted"
+          class="error">
+          <div *ngIf="productForm.get('brandID')?.errors?.['required']">Brand is required.</div>
+        </div>
+      </div>
+      <div class="form-group" *ngIf="!(isAssignProduct)">
+        <label for="quantity">Quantity:</label>
+        <input type="text" id="quantity" formControlName="quantity" placeholder="Enter product stock" />
+      </div>
+      <div *ngIf="isAssignProduct && !this.isAvailableBrandByCategoryID && isShowLabelForNoBrandAvailable">
+        <label>There is no available Brands.</label>
+        <div class="form-group button-save-container">
+          <button class="button-save" type="submit" (click)="onButtonClickProductList()">Product List</button>
+        </div>
+      </div>
+      <div class="form-group button-save-container" *ngIf="!isAssignProduct">
+        <button type="submit" class="button-save">{{buttonName}}</button>
+      </div>
+      <div class="form-group button-save-container" *ngIf="isAssignProduct && this.isAvailableBrandByCategoryID">
+        <button type="submit" class="button-save">{{buttonName}}</button>
+      </div>
+    </form>
+  </div>
+</div>

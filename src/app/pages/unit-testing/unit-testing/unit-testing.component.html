@@ -1,0 +1,95 @@
+<app-layout></app-layout>
+<ng-container id="unitTesting" class="section">
+    <header>
+        <h1>Unit Testing</h1>
+    </header>
+    <ul>
+        <li>Login Page
+            <div class="image-grid">
+                <div *ngFor="let image of images_LoginPage; let i = index">
+                    <p>{{ image.label }}</p>
+                    <img [src]="image.src" alt="Image not found" (click)="openModal(i,'images_LoginPage')" />
+                </div>
+            </div>
+        </li>
+        <li>User Detail Page (No permission)
+            <div class="image-grid">
+                <div *ngFor="let image of images_NoPermissionUserDetails; let i = index">
+                    <p>{{ image.label }}</p>
+                    <img [src]="image.src" alt="Image not found"
+                        (click)="openModal(i,'images_NoPermissionUserDetails')" />
+                </div>
+            </div>
+        </li>
+        <li>User Detail Page (With permission)
+            <div class="image-grid">
+                <div *ngFor="let image of images_PermissionUserDetails; let i = index">
+                    <p>{{ image.label }}</p>
+                    <img [src]="image.src" alt="Image not found"
+                        (click)="openModal(i,'images_PermissionUserDetails')" />
+                </div>
+            </div>
+        </li>
+        <li>User List Page
+            <div class="image-grid">
+                <div *ngFor="let image of images_User_List; let i = index">
+                    <p>{{ image.label }}</p>
+                    <img [src]="image.src" alt="Image not found" (click)="openModal(i,'images_User_List')" />
+                </div>
+            </div>
+        </li>
+        <li>Product Detail Page
+            <div class="image-grid">
+                <div *ngFor="let image of images_Product_Detail; let i = index">
+                    <p>{{ image.label }}</p>
+                    <img [src]="image.src" alt="Image not found" (click)="openModal(i,'images_Product_Detail')" />
+                </div>
+            </div>
+        </li>
+        <li>Product List Page
+            <div class="image-grid">
+                <div *ngFor="let image of images_Product_list; let i = index">
+                    <p>{{ image.label }}</p>
+                    <img [src]="image.src" alt="Image not found" (click)="openModal(i,'images_Product_list')" />
+                </div>
+            </div>
+        </li>
+        <li>Other Images
+            <div class="image-grid">
+                <div *ngFor="let image of images_Others; let i = index">
+                    <p>{{ image.label }}</p>
+                    <img [src]="image.src" alt="Image not found" (click)="openModal(i,'images_Others')" />
+                </div>
+            </div>
+        </li>
+        <li>About Us Page
+            <div class="image-grid">
+                <div *ngFor="let image of images_About_us; let i = index">
+                    <p>{{ image.label }}</p>
+                    <img [src]="image.src" alt="Image not found" (click)="openModal(i,'images_About_us')" />
+                </div>
+            </div>
+        </li>
+        <li>Unit Testing
+            <div class="image-grid">
+                <div *ngFor="let image of images_Unit_Testing; let i = index">
+                    <p>{{ image.label }}</p>
+                    <img [src]="image.src" alt="Image not found" (click)="openModal(i,'images_Unit_Testing')" />
+                </div>
+            </div>
+        </li>
+    </ul>
+</ng-container>
+
+<!-- Image Modal -->
+<div id="imageModal" class="image-modal">
+    <div class="modal-content">
+        <button class="close-btn" (click)="closeModal()">✖</button>
+        <button class="prev-btn" (click)="prevImage(activeImagePreview)">⬅</button>
+        <img id="modalImage" src="" alt="Expanded Image" />
+        <button class="next-btn" (click)="nextImage(activeImagePreview)">➡</button>
+        <b>
+            <p id="imageLabel"></p>
+        </b>
+    </div>
+</div>

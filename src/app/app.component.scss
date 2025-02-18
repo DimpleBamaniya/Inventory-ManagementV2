@@ -1,0 +1,17 @@
+.toast {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+  }
+  
+  .toast.success {
+    background-color: #198754; /* Bootstrap success color */
+  }
+  
+  .toast.error {
+    background-color: #dc3545; /* Bootstrap danger color */
+  }
+  
+  .toast.info {
+    background-color: #0dcaf0; /* Bootstrap info color */
+  }
+  

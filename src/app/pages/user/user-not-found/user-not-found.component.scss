@@ -1,0 +1,58 @@
+// Full-page container styling
+.not-found-page {
+    height: 100vh; // Full height
+    width: 100vw; // Full width
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f9f9f9; // Light background
+    font-family: 'Arial', sans-serif;
+  }
+  
+  // Inner content styling
+  .content {
+    text-align: center;
+    animation: fadeIn 1.5s ease-in-out;
+  
+    .animation {
+      display: inline-block;
+      animation: bounce 2s infinite;
+  
+      .icon {
+        font-size: 150px; // Large icon
+        color: #ff5252; // Red color
+        text-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); // Subtle shadow for depth
+      }
+    }
+  
+    .message {
+      font-size: 2em; // Large text
+      color: #555; // Neutral color
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  }
+  
+  // Keyframes for bounce animation
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-20px);
+    }
+    60% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  // Keyframes for fade-in animation
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  

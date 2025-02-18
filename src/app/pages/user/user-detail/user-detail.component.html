@@ -1,0 +1,142 @@
+<app-layout></app-layout>
+<div class="container">
+    <!-- Form Container -->
+    <div class="form-container">
+        <h1>{{ labelForAddUser ? labelForAddUser : labelForEditUser }}</h1>
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+            <!-- First Name -->
+            <div class="form-group">
+                <label for="firstName">First Name
+                <span class="mandatory">*</span></label>
+                <input [readonly]="isReadOnly" type="text" id="firstName" formControlName="firstName"
+                    placeholder="Enter your first name" />
+                <div *ngIf="firstName?.invalid && firstName?.touched && isSubmited" class="error">
+                    <div *ngIf="firstName?.errors?.['required']">First Name is required.</div>
+                    <div *ngIf="firstName?.errors?.['minlength']">First Name must be more than 2 characters.</div>
+                    <div *ngIf="firstName?.errors?.['maxlength']">First Name must be less than 100 characters.</div>
+                </div>
+            </div>
+
+            <!-- Last Name -->
+            <div class="form-group">
+                <label for="lastName">Last Name<span class="mandatory">*</span></label>
+                <input [readonly]="isReadOnly" type="text" id="lastName" formControlName="lastName"
+                    placeholder="Enter your last name">
+                <div *ngIf="lastName?.invalid && lastName?.touched && isSubmited" class="error">
+                    <div *ngIf="lastName?.errors?.['required']">Last Name is required.</div>
+                    <div *ngIf="lastName?.errors?.['minlength']">Last Name must be more than 2 characters.</div>
+                    <div *ngIf="lastName?.errors?.['maxlength']">Last Name must be less than 100 characters.</div>
+                </div>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group" *ngIf="!isUpdateForm">
+                <label for="email">Email ID<span class="mandatory">*</span></label>
+                <input [readonly]="isReadOnly" type="email" id="email" formControlName="emailID"
+                    placeholder="Enter your email">
+                <div *ngIf="emailID?.invalid && emailID?.touched && isSubmited" class="error">
+                    <div *ngIf="emailID?.errors?.['required']">Email is required.</div>
+                    <div *ngIf="emailID?.errors?.['email']">Invalid email format.</div>
+                </div>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group" *ngIf="!isUpdateForm">
+                <label for="password">Password<span class="mandatory">*</span></label>
+                <input [readonly]="isReadOnly" type="password" id="password" formControlName="password"
+                    placeholder="Enter your password">
+                <div *ngIf="password?.invalid && password?.touched && isSubmited" class="error">
+                    <div *ngIf="password?.errors?.['required']">Password is required.</div>
+                    <div *ngIf="password?.errors?.['minlength']">Password must be at least 6 characters long.</div>
+                </div>
+            </div>
+            <!-- City -->
+            <div class="form-group">
+                <label for="city">City<span class="mandatory">*</span></label>
+                <select id="city" formControlName="cityID">
+                    <option value="{{ null }}" disabled>Select City</option>
+                    <option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</option>
+                </select>
+                <div *ngIf="cityID?.invalid && cityID?.touched" class="error">
+                    <div *ngIf="cityID?.errors?.['required']">City is required.</div>
+                </div>
+            </div>
+
+            <!-- Department -->
+            <div class="form-group" *ngIf="isUpdateForm">
+                <label for="department">Department<span *ngIf="isEditPermition" class="mandatory">*</span></label>
+                <select id="department" formControlName="departmentID">
+                    <option value="{{ null }}" disabled>Select Department</option>
+                    <option *ngFor="let department of departments" [value]="department.id">{{ department.name }}
+                    </option>
+                </select>
+                <div *ngIf="departmentID?.invalid && departmentID?.touched" class="error">
+                    <div *ngIf="departmentID?.errors?.['required']">Department is required.</div>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="button-container">
+                <button type="button" *ngIf="isReadOnly" (click)="OnChangeEdit()">Edit</button>
+                <button *ngIf="!isReadOnly" type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Table Container -->
+    <div class="table-container" *ngIf="isShowProduct && !isEditPermition && isProductAssigned">
+        <h2>Products Assigned</h2>
+        <table class="dynamic-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Product Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of userProductDetail; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ product.name }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Table Container -->
+    <div class="table-container" *ngIf="isShowProduct && isEditPermition">
+        <h2>Products Assigned</h2>
+
+
+        <!-- Add Product Button -->
+        <div class="button-container">
+            <button class="add-product-btn" (click)="onAddProduct()">Add Product</button>
+        </div>
+
+        <!-- Product Table -->
+        <table class="dynamic-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Product Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngIf="isProductAssigned">
+                    <tr *ngFor="let product of userProductDetail; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ product.name }}</td>
+                        <td>
+                            <button class="delete-btn" (click)="onDeleteProduct(product.userProductID)">Remove</button>
+                        </td>
+                    </tr>
+                </ng-container>
+                <ng-container *ngIf="!isProductAssigned">
+                    <tr>
+                        <td colspan="3" class="table-no-record text-center">No records found</td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+
+</div>

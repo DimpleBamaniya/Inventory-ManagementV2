@@ -1,0 +1,91 @@
+<app-layout></app-layout>
+<div class="container my-5">
+  <button class="btn btn-primary mb-4" (click)="openDialogForAddProduct(0)">Add Product</button>
+  <h1 class="text-center mb-4">Product List</h1>
+
+  <!-- Search Bar -->
+  <div class="d-flex justify-content-between mb-4">
+    <div class="w-75 d-flex justify-content-end">
+      <input type="text" [(ngModel)]="searchString" placeholder="Search" class="form-control search-input">
+    </div>
+    <button class="btn btn-success ml-3" [(ngModel)]="searchString" (click)="searchProducts()">Search</button>
+  </div>
+
+  <!-- User Table -->
+  <table class="table table-striped table-hover table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th (click)="changeSortColumn('code')" style="cursor: pointer;">Product Code</th>
+        <th (click)="changeSortColumn('categoryName')" style="cursor: pointer;">Category Name</th>
+        <th (click)="changeSortColumn('brandName')" style="cursor: pointer;">Brand Name</th>
+        <th (click)="changeSortColumn('availableQuantity')" style="cursor: pointer;">Available Quantity</th>
+        <th (click)="changeSortColumn('useQuantity')" style="cursor: pointer;">Used Quantity</th>
+        <th (click)="changeSortColumn('quantity')" style="cursor: pointer;">Total Quantity</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="!isNoRecordFound">
+        <tr *ngFor="let product of products" class="fade-in">
+          <td>{{ product.code }}</td>
+          <td>{{ product.categoryName }}</td>
+          <td>{{ product.brandName }}</td>
+          <td>{{ product.availableQuantity }}</td>
+          <td>{{ product.useQuantity }}</td>
+          <td>{{ product.quantity }}</td>
+          <td>
+            <button class="btn btn-warning" (click)="openDialogForAddProduct(product)">Edit</button>
+            <button class="btn btn-danger" (click)="deleteProduct(product)">Delete</button>
+          </td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="isNoRecordFound">
+        <tr>
+          <td colspan="7" class="text-center table-no-record">No records found</td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+
+  <!-- Pagination -->
+  <nav>
+    <ul class="pagination justify-content-center align-items-center">
+      <!-- Page Size Dropdown -->
+      <li class="page-item d-flex align-items-center gap-0">
+        <span class="me-0">Page Size</span>
+        <select class="form-select small-dropdown" id="pageSizeDropdown" (change)="onPageSizeChange()" [(ngModel)]="pagingParams.pageSize">
+          <option *ngFor="let size of pageSizeOptions" [value]="size">{{ size }}</option>
+        </select>
+      </li>
+  
+      <!-- Total Records Display -->
+      <li class="page-item">
+        <span>Total Record: {{ totalRecords }}</span>
+      </li>
+  
+      <!-- Previous Button -->
+      <li class="page-item">
+        <button class="btn btn-secondary" (click)="prevPage()" [disabled]="pagingParams.pageNo === 1">Previous</button>
+      </li>
+  
+      <!-- Current Page Display -->
+      <li class="page-item">
+        <span>Page {{ pagingParams.pageNo }} of {{ totalPages }}</span>
+      </li>
+  
+      <!-- Next Button -->
+      <li class="page-item">
+        <button class="btn btn-secondary" (click)="nextPage()" [disabled]="pagingParams.pageNo === totalPages">Next</button>
+      </li>
+  
+      <!-- Additional Buttons for Product Category and Brand -->
+      <li class="page-item">
+        <button class="btn animated-btn mb-6" (click)="openCategoryDialog()">Product Category</button>
+      </li>
+      <li class="page-item">
+        <button class="btn animated-btn mb-8" (click)="openBrandDialog()">Product Brand</button>
+      </li>
+    </ul>
+  </nav>
+  
+</div>
